@@ -1,1 +1,20 @@
+suffixes = ['st', 'nd', 'rd', 'th']
+
+def create_list():
+    for number, suffix in enumerate(suffixes, start=1):
+        while True:
+            order = f"{number}{suffix}"
+            values = input(f"Please enter {order} values (*,*,*): ")
+            values_list = values.split(',')
+
+            if len(values_list) != 3:
+                print('Enter exactly 3 values separated by commas!')
+            elif all(value.replace('.', '', 1).isdigit() or (value.startswith('-') and value[1:].replace('.', '', 1).isdigit()) for value in values_list):
+                values_tuple = tuple(map(float, values_list))
+                print(f"{order} tuple: {values_tuple}")
+                break
+            else:
+                print('Enter numeric values!')
+
+create_list()
 
