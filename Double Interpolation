@@ -48,22 +48,13 @@ check_third_list(third_list, xlis)
 check_third_list(third_list, ylis)
 check_third_list(third_list, zlis)
 
-sorted_third_list = sorted(third_list)
-
-temporary_sorted_third_list = []
-
-temporary_sorted_third_list.extend(sorted_third_list)
-
-def check_first_list(destination, source):
-    temporary_sorted_third_list[0] = source[0]
-    temporary_sorted_third_list[1] = source[1]
-    if temporary_sorted_third_list[0] == temporary_sorted_third_list[1]:
-        destination.extend(source)
-        
-first_list = [] 
-check_first_list(first_list, xlis)
-check_first_list(first_list, ylis)
-check_first_list(first_list, zlis)
+first_list = []
+if third_list != xlis:
+    first_list.extend(xlis)
+elif third_list != xlis:
+    first_list.extend(xlis)
+elif third_list != xlis:
+    first_list.extend(xlis)
 
 def check_second_list(destination, source):
     if all(first != source_item and third != source_item for first, third, source_item in zip(first_list, third_list, source)):
@@ -74,10 +65,55 @@ check_second_list(second_list, xlis)
 check_second_list(second_list, ylis)
 check_second_list(second_list, zlis)
 
-first_interpolation = third_list[0] + ((third_list[1] - third_list[0])*(Y - second_list[0]))/(second_list[1] - second_list[0])
+collection = [first_list, second_list, third_list]
 
-second_interpolation = third_list[2] + ((third_list[3] - third_list[2])*(Y - second_list[2]))/(second_list[3] - second_list[2])
+sorted_indices = sorted(range(len(first_list)), key=lambda i: first_list[i])
+sorted_collection = tuple(sorted(lst) for lst in collection)
 
-first_interpolations_collection = [(first_list[0], Y, first_interpolation), (first_list[2], Y, second_interpolation)]
+second_list_sorted = tuple(second_list[i] for i in sorted_indices)
 
-print(first_interpolations_collection)
+third_list_sorted = tuple(third_list[i] for i in sorted_indices)
+
+sorted_collection = (sorted_collection[0], second_list_sorted, third_list_sorted)
+backup_sorted_collection = (sorted_collection[0], second_list_sorted, third_list_sorted)
+
+new_collection = [(sublist[0], sublist[1]) for sublist in sorted_collection]
+
+new_first_list = new_collection[0]
+new_second_list = new_collection[1]
+new_third_list = new_collection[2]
+
+sorted_indices = sorted(range(len(new_second_list)), key=lambda i: new_second_list[i])
+sorted_collection = tuple(sorted(lst) for lst in new_collection)
+
+first_list_sorted = tuple(new_first_list[i] for i in sorted_indices)
+
+third_list_sorted = tuple(new_third_list[i] for i in sorted_indices)
+
+new_sorted_collection = (first_list_sorted, sorted_collection[1], third_list_sorted)
+
+last_collection = [(sublist[2], sublist[3]) for sublist in backup_sorted_collection]
+new_first_list = last_collection[0]
+new_second_list = last_collection[1]
+new_third_list = last_collection[2]
+
+sorted_indices = sorted(range(len(new_second_list)), key=lambda i: new_second_list[i])
+sorted_collection = tuple(sorted(lst) for lst in last_collection)
+
+new_first_list_sorted = tuple(new_first_list[i] for i in sorted_indices)
+
+new_third_list_sorted = tuple(new_third_list[i] for i in sorted_indices)
+
+last_sorted_collection = (new_first_list_sorted, sorted_collection[1], new_third_list_sorted)
+
+final_collection = [
+    (
+        new_sorted_collection[i][0],
+        new_sorted_collection[i][1],
+        last_sorted_collection[i][0],
+        last_sorted_collection[i][1]
+    )
+    for i in range(len(new_sorted_collection))
+]
+
+print('final_collection:', final_collection)
