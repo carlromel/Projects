@@ -39,6 +39,10 @@ X = given("X")
 Y = given("Y")
 Z = given("Z")
 
+print('xlis:', xlis)
+print('ylis:', ylis)
+print('zlis:', zlis)
+
 def check_third_list(destination, source):
     if len(source) == len(set(source)):
         destination.extend(source)
@@ -49,12 +53,12 @@ check_third_list(third_list, ylis)
 check_third_list(third_list, zlis)
 
 first_list = []
-if third_list != xlis:
+if tuple(third_list) != xlis:
     first_list.extend(xlis)
-elif third_list != xlis:
-    first_list.extend(xlis)
-elif third_list != xlis:
-    first_list.extend(xlis)
+elif tuple(third_list) != ylis:
+    first_list.extend(ylis)
+elif tuple(third_list) != zlis:
+    first_list.extend(zlis)
 
 def check_second_list(destination, source):
     if all(first != source_item and third != source_item for first, third, source_item in zip(first_list, third_list, source)):
@@ -64,6 +68,10 @@ second_list = []
 check_second_list(second_list, xlis)
 check_second_list(second_list, ylis)
 check_second_list(second_list, zlis)
+
+print('first_list:', first_list)
+print('second_list:', second_list)
+print('third_list:', third_list)
 
 collection = [first_list, second_list, third_list]
 
