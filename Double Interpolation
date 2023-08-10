@@ -124,4 +124,12 @@ final_collection = [
     for i in range(len(new_sorted_collection))
 ]
 
+final_first_list = final_collection[0]
+final_second_list = final_collection[1]
+final_third_list = final_collection[2]
+
+print('final_first_list:', final_first_list)
+print('final_second_list:', final_second_list)
+print('final_third_list:', final_third_list)
+
 print('final_collection:', final_collection)
